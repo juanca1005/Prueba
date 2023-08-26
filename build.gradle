@@ -1,0 +1,56 @@
+defaultTasks 'clean', 'test', 'aggregate'
+
+buildscript {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+    ext{
+        serenityVersion = '3.2.5'
+        serenityGradlePluginVersion = '2.4.34'
+        serenityCucumberVersion = '3.2.5'
+
+        junitVersion = '4.13.2'
+        slf4jVersion = '1.7.36'
+        assertjVersion = '3.23.1'
+    }
+    dependencies {
+        classpath("net.serenity-bdd:serenity-gradle-plugin:$rootProject.ext.serenityGradlePluginVersion")
+    }
+}
+
+group 'co.com.opitech.certification'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'net.serenity-bdd.aggregator'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    testImplementation "net.serenity-bdd:serenity-core:$rootProject.ext.serenityVersion"
+    testImplementation "net.serenity-bdd:serenity-junit:$rootProject.ext.serenityVersion"
+    implementation "net.serenity-bdd:serenity-screenplay:$rootProject.ext.serenityVersion"
+    implementation "net.serenity-bdd:serenity-screenplay-webdriver:$rootProject.ext.serenityVersion"
+    implementation "net.serenity-bdd:serenity-cucumber:$rootProject.ext.serenityCucumberVersion"
+
+    testImplementation "junit:junit:$rootProject.ext.junitVersion"
+    testImplementation "org.assertj:assertj-core:$rootProject.ext.assertjVersion"
+
+    testImplementation "org.slf4j:slf4j-simple:$rootProject.ext.slf4jVersion"
+}
+
+tasks.withType(Test){
+    systemProperties = System.properties as Map<String, ?>
+    maxParallelForks = Runtime.runtime.availableProcessors()
+}
+
+gradle.startParameter.continueOnFailure = true
+
+test.finalizedBy(aggregate)
