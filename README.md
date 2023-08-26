@@ -13,4 +13,4 @@ Se debe ejecutar Gradle para que descarge las dependencias
 
 ##
 Se debe ejecutar el runner ModuloBookRooner O en caso de que tenga gradle y java configurado, ejecutar el siguinte comando 
-+ gradle clean test
++ gradle clean test 
