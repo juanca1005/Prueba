@@ -6,12 +6,12 @@ buildscript {
         mavenLocal()
     }
     ext{
-        serenityVersion = '3.2.5'
+        serenityVersion = '3.9.8'
         serenityGradlePluginVersion = '2.4.34'
-        serenityCucumberVersion = '3.2.5'
+        serenityCucumberVersion = '3.9.8'
 
         junitVersion = '4.13.2'
-        slf4jVersion = '1.7.36'
+        slf4jVersion = '2.0.9'
         assertjVersion = '3.23.1'
     }
     dependencies {
